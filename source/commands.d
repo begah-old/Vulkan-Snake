@@ -13,14 +13,14 @@ class CommandPool {
 
         VkCommandPool _pool;
         VkQueue _queueFamily;
-		size_t _queueFamilyIndex;
+		uint _queueFamilyIndex;
 
         Command[10] _singleTimeCommands;
         size_t singleTimeIndex;
         Command[] _commands;
     }
 
-    this(VkQueue queueFamily, size_t queueFamilyIndex) {
+    this(VkQueue queueFamily, uint queueFamilyIndex) {
         _queueFamily = queueFamily;
 		_queueFamilyIndex = queueFamilyIndex;
 

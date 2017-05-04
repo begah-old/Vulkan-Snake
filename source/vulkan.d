@@ -25,13 +25,13 @@ void enforceVK(string message = "")(VkResult res) {
     enforce(res == VkResult.VK_SUCCESS, message != "\n" ? message ~ "\n" ~ res.to!string : res.to!string);
 }
 
-size_t searchMemoryType(VkPhysicalDevice physicalDevice, uint typeFilter, VkMemoryPropertyFlags properties) {
+uint searchMemoryType(VkPhysicalDevice physicalDevice, uint typeFilter, VkMemoryPropertyFlags properties) {
     VkPhysicalDeviceMemoryProperties memProperties;
     vkGetPhysicalDeviceMemoryProperties(physicalDevice, &memProperties);
 
     foreach(uint i; 0 .. memProperties.memoryTypeCount) {
         if ((typeFilter & (1 << i)) && (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
-            return i;
+            return cast(uint)i;
         }
     }
     return 0;

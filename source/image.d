@@ -82,13 +82,13 @@ class Image {
             aspectMask: VK_IMAGE_ASPECT_COLOR_BIT,
             baseArrayLayer: 0,
             mipLevel: 0,
-            layerCount: _properties.layerCount
+            layerCount: cast(uint)_properties.layerCount
         };
 		VkImageSubresourceLayers dest = {
 			aspectMask: VK_IMAGE_ASPECT_COLOR_BIT,
-			baseArrayLayer: destLayers,
+			baseArrayLayer: cast(uint)destLayers,
 			mipLevel: 0,
-			layerCount: _properties.layerCount
+			layerCount: cast(uint)_properties.layerCount
         };
 
         VkImageCopy region = {
@@ -97,8 +97,8 @@ class Image {
             srcOffset: {0, 0, 0},
             dstOffset: {0, 0, 0},
             extent: {
-                width: _properties.width,
-                height: _properties.height,
+                width: cast(uint)_properties.width,
+                height: cast(uint)_properties.height,
                 depth: 1
             }
         };
@@ -126,7 +126,7 @@ class Image {
                 baseMipLevel: 0,
                 levelCount: 1,
                 baseArrayLayer: 0,
-                layerCount: _properties.layerCount
+                layerCount: cast(uint)_properties.layerCount
             },
             srcAccessMask: 0,
             dstAccessMask: 0
@@ -173,7 +173,7 @@ class Image {
                 baseMipLevel: 0,
                 levelCount: 1,
                 baseArrayLayer: 0,
-                layerCount: _properties.layerCount
+                layerCount: cast(uint)_properties.layerCount
             }
         };
         vkCreateImageView(Window.device, &viewInfo, null, &_view).enforceVK;
@@ -205,12 +205,12 @@ class Image {
 		VkImageCreateInfo imageInfo = {
 			imageType: VK_IMAGE_TYPE_2D,
 			extent: {
-				width: _properties.width,
-				height: _properties.height,
+				width: cast(uint)_properties.width,
+				height: cast(uint)_properties.height,
 				depth: 1
 			},
             mipLevels: 1,
-            arrayLayers: _properties.layerCount,
+            arrayLayers: cast(uint)_properties.layerCount,
             format: _properties.format,
             tiling: _properties.tiling,
             initialLayout: VK_IMAGE_LAYOUT_PREINITIALIZED,

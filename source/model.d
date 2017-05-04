@@ -216,7 +216,7 @@ class Model {
 
 		VkBuffer[] vertexBuffers = [vertices.main, normals.main, textcoords.main];
 		VkDeviceSize[] offsets = [0, 0, 0];
-		vkCmdBindVertexBuffers(cmd, 0, vertexBuffers.length, vertexBuffers.ptr, offsets.ptr);
+		vkCmdBindVertexBuffers(cmd, 0, cast(uint)vertexBuffers.length, vertexBuffers.ptr, offsets.ptr);
 
 		vkCmdBindIndexBuffer(cmd, indices.main, 0, VK_INDEX_TYPE_UINT32);
 	}
@@ -321,7 +321,7 @@ private template IndexFix(int N) {
 			if(test !is null)
 				IndicesOutput[i] = *test;
 			else {
-				IndicesOutput[i] = DataOutput[0].length / Data[0].elementSize;
+				IndicesOutput[i] = cast(uint)(DataOutput[0].length / Data[0].elementSize);
 				storage[c] = IndicesOutput[i];
 				foreach(j, d; Data) {
 					DataOutput[j] ~= d.data[Indices[toIndice(i) + j] * d.elementSize .. (Indices[toIndice(i) + j] + 1) * d.elementSize];

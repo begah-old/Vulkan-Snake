@@ -184,7 +184,7 @@ class Body {
         snake[$ - 1].child = temp;
 
 		float Size = max(snake[$ - 1].instance.boundingBox.max.x - snake[$ - 1].instance.boundingBox.min.x,
-							 snake[$ - 1].instance.boundingBox.max.y - snake[$ - 1].instance.boundingBox.min.y);
+							 snake[$ - 1].instance.boundingBox.max.z - snake[$ - 1].instance.boundingBox.min.z);
 		switch(snake[$ - 1].direction) {
 			case Direction.Up:
 				temp.instance.translate(vec3(0, 0, -Size));
@@ -242,8 +242,8 @@ void recordCommand(int index, Command command) {
 
 	sets = [mainPipeline.shader.images[0].set, mainPipeline.shader.uniforms[0][0].set, mainPipeline.shader.uniforms[1][0].set];
 	uniform_offset = [cast(uint)(modelBufferOffset * snake[0].uniformPosition.y)];
-	vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, sets.length, sets.ptr, uniform_offset.length, uniform_offset.ptr);
-	vkCmdDrawIndexed(command.buffer, snake_head.indicesCount, 1, 0, 0, 0);
+	vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, cast(uint)sets.length, sets.ptr, cast(uint)uniform_offset.length, uniform_offset.ptr);
+	vkCmdDrawIndexed(command.buffer, cast(uint)snake_head.indicesCount, 1, 0, 0, 0);
 
 	// Draw body
 	snake_body.bind(command);
@@ -252,8 +252,8 @@ void recordCommand(int index, Command command) {
 		sets = [mainPipeline.shader.images[0].set, mainPipeline.shader.uniforms[0][0].set, mainPipeline.shader.uniforms[1][0].set];
 		uniform_offset = [cast(uint)(modelBufferOffset * snake[i].uniformPosition.y)];
 
-		vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, sets.length, sets.ptr, uniform_offset.length, uniform_offset.ptr);
-		vkCmdDrawIndexed(command.buffer, snake_body.indicesCount, 1, 0, 0, 0);
+		vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, cast(uint)sets.length, sets.ptr, cast(uint)uniform_offset.length, uniform_offset.ptr);
+		vkCmdDrawIndexed(command.buffer, cast(uint)snake_body.indicesCount, 1, 0, 0, 0);
 	}
 
 	// Draw coin
@@ -262,8 +262,8 @@ void recordCommand(int index, Command command) {
 	sets = [mainPipeline.shader.images[0].set, mainPipeline.shader.uniforms[0][0].set, mainPipeline.shader.uniforms[1][0].set];
 	uniform_offset = [cast(uint)(modelBufferOffset * coinUniformPosition.y)];
 
-	vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, sets.length, sets.ptr, uniform_offset.length, uniform_offset.ptr);
-	vkCmdDrawIndexed(command.buffer, coin.model.indicesCount, 1, 0, 0, 0);
+	vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, cast(uint)sets.length, sets.ptr, cast(uint)uniform_offset.length, uniform_offset.ptr);
+	vkCmdDrawIndexed(command.buffer, cast(uint)coin.model.indicesCount, 1, 0, 0, 0);
 
 	// Draw terrain
 	terrain.model.bind(command);
@@ -271,8 +271,8 @@ void recordCommand(int index, Command command) {
 	sets = [mainPipeline.shader.images[0].set, mainPipeline.shader.uniforms[0][0].set, mainPipeline.shader.uniforms[1][0].set];
 	uniform_offset = [cast(uint)(modelBufferOffset * terrainUniformPosition.y)];
 
-	vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, sets.length, sets.ptr, uniform_offset.length, uniform_offset.ptr);
-	vkCmdDrawIndexed(command.buffer, terrain.model.indicesCount, 1, 0, 0, 0);
+	vkCmdBindDescriptorSets(command.buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mainPipeline.pipelineLayout, 0, cast(uint)sets.length, sets.ptr, cast(uint)uniform_offset.length, uniform_offset.ptr);
+	vkCmdDrawIndexed(command.buffer, cast(uint)terrain.model.indicesCount, 1, 0, 0, 0);
 
     vkCmdEndRenderPass(command.buffer);
 

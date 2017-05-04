@@ -113,7 +113,7 @@ class Pipeline {
         if(_enableDepthTesting) attachments ~= depthAttachment;
 
         VkRenderPassCreateInfo renderPassInfo = {
-            attachmentCount: attachments.length,
+            attachmentCount: cast(uint)attachments.length,
             pAttachments: attachments.ptr,
             subpassCount: 1,
             pSubpasses: &subpass,
@@ -129,9 +129,9 @@ class Pipeline {
         VkVertexInputAttributeDescription[] attributeDescriptions = _vertexInfoFun(bindingDescription);
 
         VkPipelineVertexInputStateCreateInfo vertexInputInfo = {
-            vertexBindingDescriptionCount: cast(size_t)bindingDescription.length,
+            vertexBindingDescriptionCount: cast(uint)bindingDescription.length,
             pVertexBindingDescriptions: bindingDescription.ptr,
-            vertexAttributeDescriptionCount: cast(size_t)attributeDescriptions.length,
+            vertexAttributeDescriptionCount: cast(uint)attributeDescriptions.length,
             pVertexAttributeDescriptions: attributeDescriptions.ptr
         };
 
@@ -221,7 +221,7 @@ class Pipeline {
 		};
 
         VkPipelineLayoutCreateInfo pipelineLayoutInfo = {
-            setLayoutCount: setLayouts.length,
+            setLayoutCount: cast(uint)setLayouts.length,
             pSetLayouts: setLayouts.ptr,
             pushConstantRangeCount: 1,
             pPushConstantRanges: &pushConstant,
@@ -241,7 +241,7 @@ class Pipeline {
 
 		auto shaderStages = _shader.getStageInfo();
         VkGraphicsPipelineCreateInfo pipelineInfo = {
-            stageCount: shaderStages.length,
+            stageCount: cast(uint)shaderStages.length,
             pStages: shaderStages.ptr,
             pVertexInputState: &vertexInputInfo,
             pInputAssemblyState: &inputAssembly,

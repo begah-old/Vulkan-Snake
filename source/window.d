@@ -418,7 +418,7 @@ __gshared struct Window {
 
 		if (queueFamilies.graphics != queueFamilies.present) {
 			swapChainCreateInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-			swapChainCreateInfo.queueFamilyIndexCount = queueFamilyIndices.length;
+			swapChainCreateInfo.queueFamilyIndexCount = cast(uint)queueFamilyIndices.length;
 			swapChainCreateInfo.pQueueFamilyIndices = queueFamilyIndices.ptr;
 		} else {
 			swapChainCreateInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
@@ -429,7 +429,7 @@ __gshared struct Window {
 		VkSwapchainKHR oldSwapChain = swapChain;
 		vkCreateSwapchainKHR(device, &swapChainCreateInfo, null, &swapChain).enforceVK;
 
-		if(oldSwapChain != 0)
+		if(oldSwapChain)
 			vkDestroySwapchainKHR(device, oldSwapChain, null);
 
 		// Get images of swap chain

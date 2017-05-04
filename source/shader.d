@@ -60,9 +60,9 @@ class Shader {
 		VkDescriptorPoolSize[] poolSize =  getPoolSize();
 
         VkDescriptorPoolCreateInfo poolInfo = {
-			poolSizeCount: poolSize.length,
+			poolSizeCount: cast(uint)poolSize.length,
 			pPoolSizes: poolSize.ptr,
-			maxSets: poolSize.length
+			maxSets: cast(uint)poolSize.length
         };
         vkCreateDescriptorPool(Window.device, &poolInfo, null, &descriptorPool).enforceVK;
 
@@ -133,7 +133,7 @@ class UniformImage {
 
 	void generateLayout() {
 		VkDescriptorSetLayoutBinding layoutBinding = {
-			binding: _binding,
+			binding: cast(uint)_binding,
 			descriptorType: VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
 			descriptorCount: 1,
 			stageFlags: VK_SHADER_STAGE_FRAGMENT_BIT,
@@ -197,7 +197,7 @@ class UniformImage {
 				pTexelBufferView: null}
         ];
 
-        vkUpdateDescriptorSets(Window.device, descriptorWrites.length, descriptorWrites.ptr, 0, null);
+        vkUpdateDescriptorSets(Window.device, cast(uint)descriptorWrites.length, descriptorWrites.ptr, 0, null);
 	}
 }
 
@@ -218,7 +218,7 @@ class UniformBuffer {
     private VkDeviceSize _size; // Element size
 	private size_t _elementPerPage;
 
-	public VkDescriptorSetLayout setLayout = 0;
+	public VkDescriptorSetLayout setLayout = VK_NULL_ND_HANDLE;
 	public UniformVariable_Page[] pages;
 	alias pages this;
 
@@ -255,11 +255,11 @@ class UniformBuffer {
 
 		foreach(i, ref page; pages) {
 			if(page.free != _elementPerPage) {
-				set(vec2i(i, page.free), data, size, offset);
+				set(vec2i(cast(uint)i, cast(uint)page.free), data, size, offset);
 				size_t j = page.free;
 				pageFindNextFree(page);
 
-				return vec2i(i, j);
+				return vec2i(cast(uint)i, cast(uint)j);
 			}
 		}
 
@@ -273,9 +273,9 @@ class UniformBuffer {
 	}
 
 	void generateLayout() {
-		if(setLayout != 0) return;
+		if(setLayout) return;
 		VkDescriptorSetLayoutBinding layoutBinding = {
-			binding: _binding,
+			binding: cast(uint)_binding,
 			descriptorType: _dynamic ? VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC : VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
 			descriptorCount: 1,
 			stageFlags: _shaderStage,
@@ -311,7 +311,7 @@ class UniformBuffer {
 
         VkWriteDescriptorSet descriptorWrite = {
 			dstSet: page.set,
-			dstBinding: _binding,
+			dstBinding: cast(uint)_binding,
 			dstArrayElement: 0,
 			descriptorType: _dynamic ? VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC : VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
 			descriptorCount: 1,
