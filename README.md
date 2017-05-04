@@ -2,7 +2,7 @@
 
 A snake mini game made using D and the Vulkan Graphic API.
 
-[![Preview](http://i.imgur.com/zqWfJwO.png)](https://simplemde.com)
+[![Preview]()]()
 
 Libraries used:
 	kxml : XML parsing
