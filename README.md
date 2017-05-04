@@ -2,7 +2,7 @@
 
 A snake mini game made using D and the Vulkan Graphic API.
 
-[![Preview]()]()
+[![Preview](https://github.com/Begah/Vulkan-Snake/blob/master/Screenshot.png)](https://github.com/Begah/Vulkan-Snake)
 
 Libraries used:
 	kxml : XML parsing
